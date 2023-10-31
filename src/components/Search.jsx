@@ -1,5 +1,4 @@
 import React from "react";
-import { searchMovies } from "../layout/Main";
 
 class Search extends React.Component {
   state = {
@@ -7,7 +6,7 @@ class Search extends React.Component {
   };
 
   handleKey = (e) => {
-    if (e.target === "Enter") {
+    if (e.key === "Enter") {
       this.props.searchMovies(this.state.search);
     }
   };
@@ -25,6 +24,12 @@ class Search extends React.Component {
             onKeyDown={this.handleKey}
           />
           {/* I'm using the email type because styles are not applied to the search type (I'm using https://materializecss.com/) */}
+          <button
+            className="btn search-btn"
+            onClick={() => this.props.searchMovies(this.state.search)}
+          >
+            Search
+          </button>
         </div>
       </div>
     );
