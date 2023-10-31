@@ -12,11 +12,12 @@ function Movie(props) {
       <div className="card-image waves-effect waves-block waves-light">
         {poster === "N/A" ? (
           <img
+            alt="Poster film"
             className="activator"
             src={`https://placehold.jp/3e703e/ffffff/277x450.png?text=${title}`}
           />
         ) : (
-          <img className="activator" src={poster} />
+          <img alt="Poster film" className="activator" src={poster} />
         )}
       </div>
       <div className="card-content">
