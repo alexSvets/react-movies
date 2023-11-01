@@ -3,12 +3,25 @@ import React from "react";
 class Search extends React.Component {
   state = {
     search: "",
+    type: "all",
   };
 
   handleKey = (e) => {
     if (e.key === "Enter") {
-      this.props.searchMovies(this.state.search);
+      this.props.searchMovies(this.state.search, this.state.type);
     }
+  };
+
+  handleFilter = (e) => {
+    console.log(e.target.dataset.type);
+    this.setState(
+      () => ({
+        type: e.target.dataset.type,
+      }),
+      () => {
+        this.props.searchMovies(this.state.search, this.state.type);
+      }
+    );
   };
 
   render() {
@@ -26,10 +39,47 @@ class Search extends React.Component {
           {/* I'm using the email type because styles are not applied to the search type (I'm using https://materializecss.com/) */}
           <button
             className="btn search-btn"
-            onClick={() => this.props.searchMovies(this.state.search)}
+            onClick={() =>
+              this.props.searchMovies(this.state.search, this.state.type)
+            }
           >
             Search
           </button>
+          <div>
+            <label>
+              <input
+                className="with-gap"
+                name="type"
+                type="radio"
+                data-type="all"
+                onChange={this.handleFilter}
+                checked={this.state.type === "all"}
+              />
+              <span>All</span>
+            </label>
+            <label>
+              <input
+                className="with-gap"
+                name="type"
+                type="radio"
+                data-type="movie"
+                onChange={this.handleFilter}
+                checked={this.state.type === "movie"}
+              />
+              <span>Movies only</span>
+            </label>
+            <label>
+              <input
+                className="with-gap"
+                name="type"
+                type="radio"
+                data-type="series"
+                onChange={this.handleFilter}
+                checked={this.state.type === "series"}
+              />
+              <span>Series only</span>
+            </label>
+          </div>
         </div>
       </div>
     );
